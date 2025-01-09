@@ -30,6 +30,8 @@ object Reader{
     println("El minimo de budget es: " + minBudget)
     val modaBudget: Map[Double, List[Double]] = moda("budget", valores)
     println("La moda de budget es: " + modaBudget)
+    val desviacionSTDBudget:Double = desviacionSTD("budget",valores)
+    println("La desviacion estandar de budget es: " + desviacionSTDBudget)
 
     val conteoHomepage = modastring("homepage", valores)
     println("Conteo de frecuencia de Homepage es: " + conteoHomepage)
@@ -42,6 +44,8 @@ object Reader{
     println("El minimo de id es: " + minId)
     val modaId: Map[Double, List[Double]] = moda("id", valores)
     println("La moda de id es: " + modaId)
+    val desviacionSTDId: Double = desviacionSTD("id", valores)
+    println("La desviacion estandar de id es: " + desviacionSTDId)
 
     val conteoImdb_id = modastring("imdb_id", valores)
     println("Conteo de frecuencia de imdb_id es: " + conteoImdb_id)
@@ -63,6 +67,8 @@ object Reader{
     println("El minimo de popularity es: " + minPopularity)
     val modaPopularity: Map[Double, List[Double]] = moda("popularity", valores)
     println("La moda de popularity es: " + modaPopularity)
+    val desviacionSTDPopularity: Double = desviacionSTD("popularity", valores)
+    println("La desviacion estandar de popularity es: " + desviacionSTDPopularity)
 
     val conteoPoster_path = modastring("poster_path", valores)
     println("Conteo de frecuencia de poster_path es: " + conteoPoster_path)
@@ -78,6 +84,8 @@ object Reader{
     println("El minimo de revenue es: " + minRevenue)
     val modaRevenue: Map[Double, List[Double]] = moda("revenue", valores)
     println("La moda de revenue es: " + modaRevenue)
+    val desviacionSTDRevenue: Double = desviacionSTD("revenue", valores)
+    println("La desviacion estandar de revenue es: " + desviacionSTDRevenue)
 
     val maximoRuntime: Double = maximo("runtime", valores)
     println("El maximo de runtime es: " + maximoRuntime)
@@ -87,6 +95,8 @@ object Reader{
     println("El minimo de runtime es: " + minRuntime)
     val modaRuntime: Map[Double, List[Double]] = moda("runtime", valores)
     println("La moda de runtime es: " + modaRuntime)
+    val desviacionSTDRuntime: Double = desviacionSTD("runtime", valores)
+    println("La desviacion estandar de runtime es: " + desviacionSTDRuntime)
 
     val conteoStatus = modastring("status", valores)
     println("Conteo de frecuencia de status es: " + conteoStatus)
@@ -110,6 +120,8 @@ object Reader{
     println("El minimo de vote_average es: " + minVote_average)
     val modaVote_average: Map[Double, List[Double]] = moda("vote_average", valores)
     println("La moda de vote_average es: " + modaVote_average)
+    val desviacionSTDVote_average: Double = desviacionSTD("vote_average", valores)
+    println("La desviacion estandar de vote_average es: " + desviacionSTDVote_average)
 
     val maximoVote_count: Double = maximo("vote_count", valores)
     println("El maximo de vote_count es: " + maximoVote_count)
@@ -119,7 +131,8 @@ object Reader{
     println("El minimo de vote_count es: " + minVote_count)
     val modaVote_count: Map[Double, List[Double]] = moda("vote_count", valores)
     println("La moda de vote_count es: " + modaVote_count)
-
+    val desviacionSTDVote_count: Double = desviacionSTD("Vote_count", valores)
+    println("La desviacion estandar de Vote_count es: " + desviacionSTDVote_count)
   }
 
   def countBooleans (columna:String, validar:Boolean, datos:List[Map[String,String]]): Int = {
@@ -152,4 +165,11 @@ object Reader{
       .groupBy(x => x)
     aux
   }
+
+  def desviacionSTD(columna: String, datos: List[Map[String, String]]): Double = {
+    val data = datos.map(x => x(columna).toDouble)
+    val desviacion = data.map(x => Math.pow(x - data.sum / data.size.toDouble, 2)).sum / data.size.toDouble
+    Math.sqrt(desviacion)
+  }
+  
 }
